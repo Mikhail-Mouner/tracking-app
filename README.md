@@ -43,7 +43,7 @@ Or
 Import from postman this collection :
 https://github.com/Mikhail-Mouner/tracking-app/blob/master/Tracking-App.postman_collection.json
 
-### For Test
+### For PHPUnit Test
 
 ```sh
 php artisan test
