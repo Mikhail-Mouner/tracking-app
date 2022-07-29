@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Baby;
+use App\Models\Partner;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -27,6 +28,16 @@ class BabyTest extends TestCase
 
     public function test_show_all_babies_with_parent()
     {
+        $partner = User::factory()->create();
+        Partner::create([
+            'parent_id' => $this->baby->parent_id,
+            'partner_id' => $partner->id,
+        ]);
+        $partner_babies = Baby::create([
+            'name' => 'Baby\'s Name',
+            'parent_id' => $partner->id
+        ]);
+
         $response = $this->get('/api/baby');
 
         $response->assertStatus(200);
@@ -41,11 +52,14 @@ class BabyTest extends TestCase
                         "baby_name" => $this->baby->name
                     ]
                 ],
-                "partners_baby" => []/*[
-                    "baby_id" => $this->baby->id,
-                    "baby_name" => $this->baby->name,
-                    "parent" => $this->partner->name
-                ]*/,
+                "partners_baby" => [
+                    [
+
+                    "baby_id" => $partner_babies->id,
+                    "baby_name" => $partner_babies->name,
+                    "parent" => $partner->name
+                    ]
+                ],
             ]
         ]);
     }

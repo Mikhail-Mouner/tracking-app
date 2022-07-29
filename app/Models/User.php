@@ -38,10 +38,10 @@ class User extends Authenticatable
         return $this->hasManyThrough(
             Baby::class,
             Partner::class,
-            'partner_id',
+            'parent_id',
             'parent_id',
             'id',
-            'parent_id'
+            'partner_id'
         );
     }
 }
