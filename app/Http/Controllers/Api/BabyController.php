@@ -53,7 +53,7 @@ class BabyController extends Controller
      */
     public function index(): \Illuminate\Http\JsonResponse
     {
-        $data = User::with('babies')->with('partners_baby.parent')->find(1);
+        $data = User::with('babies')->with('partners_baby.parent')->find(auth()->id());
         return Json::success('Data Loaded Successfully', [
             'babies' => BabyResource::collection($data->babies),
             'partners_baby' => BabyWithParentResource::collection($data->partners_baby),

@@ -41,7 +41,7 @@ class User extends Authenticatable
             'partner_id',
             'parent_id',
             'id',
-            'id'
+            'partner_id'
         );
     }
 }
